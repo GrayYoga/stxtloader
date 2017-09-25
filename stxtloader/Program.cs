@@ -83,13 +83,14 @@ namespace stxtloader
             DataSet filtredDs = new DataSet();
             filtredDs.Tables.Add(new DataTable());
 
-            int lenHeader = ("ПТП-75-").Length;
+            int lenHeader = 0;//("ПТП-75-").Length;
             foreach (DataColumn col in ds.Tables[0].Columns) {
                 filtredDs.Tables[0].Columns.Add(col.ToString());
             }
             foreach (DataRow row in ds.Tables[0].Rows)
             {
                 string strShipher = row["obj_shifr"].ToString();
+                lenHeader = strShipher.IndexOf('-') - 1; // буква П или С попадут в имя
                 string filename = strShipher.Substring(lenHeader);
                 if (bAllTasks || !File.Exists(CombinePathToStenogrammFile(Path, filename)))
                 {
@@ -108,7 +109,7 @@ namespace stxtloader
             DataSet filtredDs = new DataSet();
             filtredDs.Tables.Add(new DataTable());
 
-            int lenHeader = ("ПТП-75-").Length;
+            int lenHeader = 0;//("ПТП-75-").Length;
             foreach (DataColumn col in ds.Tables[0].Columns)
             {
                 filtredDs.Tables[0].Columns.Add(col.ToString());
@@ -116,6 +117,7 @@ namespace stxtloader
             foreach (DataRow row in ds.Tables[0].Rows)
             {
                 string strShipher = row["obj_shifr"].ToString();
+                lenHeader = strShipher.IndexOf('-') - 1; // буква П или С попадут в имя
                 string filename = strShipher.Substring(lenHeader);
                 if (bAllTasks || !File.Exists(CombinePathToOrientationFile(Path, filename)))
                 {
@@ -156,8 +158,9 @@ namespace stxtloader
                                          "\r\n");
 
                 }
-                int lenHeader = ("ПТП-75-").Length;
+                int lenHeader = 0;//("ПТП-75-").Length;
                 string shipher = row["obj_shifr"].ToString();
+                lenHeader = shipher.IndexOf('-') - 1; // буква П или С попадут в имя
                 string filename = shipher.Substring(lenHeader);
                 
                 if (!System.IO.Directory.Exists(strPathToSave)) { Directory.CreateDirectory(strPathToSave); }
@@ -191,8 +194,9 @@ namespace stxtloader
                 {
                     str2 += row3["orientation"].ToString();
                 }
-                int lenHeader = ("ПТП-75-").Length;
+                int lenHeader = 0;//("ПТП-75-").Length;
                 string shipher = row["obj_shifr"].ToString();
+                lenHeader = shipher.IndexOf('-') - 1; // буква П или С попадут в имя
                 string filename = shipher.Substring(lenHeader);
                 
                 if (!System.IO.Directory.Exists(strPathToSave)) { Directory.CreateDirectory(strPathToSave); }
